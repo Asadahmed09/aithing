@@ -1,0 +1,322 @@
+{
+  "BFS": {
+    "prefix": "bfs",
+    "body": [
+      "from collections import deque",
+      "",
+      "def bfs(graph, start, goal):",
+      "    q = deque([start])",
+      "    vis = set()",
+      "    while q:",
+      "        n = q.popleft()",
+      "        if n == goal:",
+      "            print('Found')",
+      "            return",
+      "        if n not in vis:",
+      "            vis.add(n)",
+      "            for nei in graph[n]:",
+      "                q.append(nei)"
+    ],
+    "description": "Breadth First Search — level-by-level, complete & optimal (unweighted)"
+  },
+
+  "DFS": {
+    "prefix": "dfs",
+    "body": [
+      "def dfs(graph, node, goal, vis=None):",
+      "    if vis is None: vis = set()",
+      "    if node == goal:",
+      "        print('Found')",
+      "        return True",
+      "    vis.add(node)",
+      "    for nei in graph[node]:",
+      "        if nei not in vis:",
+      "            if dfs(graph, nei, goal, vis):",
+      "                return True",
+      "    return False"
+    ],
+    "description": "Depth First Search — recursive, uses call stack, not optimal"
+  },
+
+  "DLS": {
+    "prefix": "dls",
+    "body": [
+      "def dls(node, goal, depth, limit, graph):",
+      "    if node == goal:",
+      "        print('Found')",
+      "        return True",
+      "    if depth == limit:",
+      "        return False          # cutoff",
+      "    for nei in graph[node]:",
+      "        if dls(nei, goal, depth + 1, limit, graph):",
+      "            return True",
+      "    return False"
+    ],
+    "description": "Depth Limited Search — DFS with depth cap, needed for IDDFS"
+  },
+
+  "IDDFS": {
+    "prefix": "iddfs",
+    "body": [
+      "# requires dls() defined above",
+      "def iddfs(start, goal, graph, max_d):",
+      "    for d in range(max_d + 1):",
+      "        print(f'Trying depth {d}')",
+      "        if dls(start, goal, 0, d, graph):",
+      "            print(f'Found at depth {d}')",
+      "            return",
+      "    print('Not found')"
+    ],
+    "description": "Iterative Deepening DFS — complete+optimal like BFS, space-efficient like DFS"
+  },
+
+  "UCS": {
+    "prefix": "ucs",
+    "body": [
+      "import heapq",
+      "",
+      "def ucs(graph, start, goal):",
+      "    pq = [(0, start)]        # (cost, node)",
+      "    vis = set()",
+      "    while pq:",
+      "        cost, node = heapq.heappop(pq)",
+      "        if node == goal:",
+      "            print(f'Cost: {cost}')",
+      "            return",
+      "        if node not in vis:",
+      "            vis.add(node)",
+      "            for nei, w in graph[node]:",
+      "                heapq.heappush(pq, (cost + w, nei))"
+    ],
+    "description": "Uniform Cost Search — optimal for weighted graphs, priority on cumulative cost"
+  },
+
+  "Greedy Best First Search": {
+    "prefix": "greedy",
+    "body": [
+      "import heapq",
+      "",
+      "def greedy(graph, start, goal, h):",
+      "    pq = [(h[start], start)]  # (heuristic, node)",
+      "    vis = set()",
+      "    while pq:",
+      "        _, node = heapq.heappop(pq)",
+      "        if node == goal:",
+      "            print('Found')",
+      "            return",
+      "        if node not in vis:",
+      "            vis.add(node)",
+      "            for nei in graph[node]:",
+      "                heapq.heappush(pq, (h[nei], nei))"
+    ],
+    "description": "Greedy Best First — uses only h(n), fast but not optimal"
+  },
+
+  "A Star Search": {
+    "prefix": "astar",
+    "body": [
+      "import heapq",
+      "",
+      "def astar(graph, start, goal, h):",
+      "    pq = [(h[start], 0, start)]  # (f, g, node)",
+      "    vis = set()",
+      "    while pq:",
+      "        f, g, node = heapq.heappop(pq)",
+      "        if node == goal:",
+      "            print(f'Cost: {g}')",
+      "            return",
+      "        if node not in vis:",
+      "            vis.add(node)",
+      "            for nei, w in graph[node]:",
+      "                ng = g + w",
+      "                heapq.heappush(pq, (ng + h[nei], ng, nei))"
+    ],
+    "description": "A* Search — f(n)=g(n)+h(n), optimal if h is admissible"
+  },
+
+  "Hill Climbing": {
+    "prefix": "hill",
+    "body": [
+      "def hill_climbing(start, goal, graph, h):",
+      "    cur = start",
+      "    while True:",
+      "        if cur == goal:",
+      "            print('Found')",
+      "            return",
+      "        neighbors = graph[cur]",
+      "        if not neighbors:",
+      "            print('Dead end')",
+      "            return",
+      "        best = min(neighbors, key=lambda x: h[x])",
+      "        if h[best] >= h[cur]:   # no improvement",
+      "            print('Stuck at local optimum')",
+      "            return",
+      "        cur = best"
+    ],
+    "description": "Hill Climbing — greedy local move, gets stuck at local optima"
+  },
+
+  "Beam Search": {
+    "prefix": "beam",
+    "body": [
+      "def beam_search(start, goal, graph, h, k):",
+      "    level = [start]",
+      "    while level:",
+      "        next_l = []",
+      "        for node in level:",
+      "            if node == goal:",
+      "                print('Found')",
+      "                return",
+      "            next_l += graph[node]",
+      "        if not next_l:",
+      "            print('Not found')",
+      "            return",
+      "        # keep only best k nodes by heuristic",
+      "        level = sorted(next_l, key=lambda x: h[x])[:k]"
+    ],
+    "description": "Beam Search — BFS keeping top-k nodes per level, incomplete, memory-bounded"
+  },
+
+  "Utility Function": {
+    "prefix": "utility",
+    "body": [
+      "def utility(pos, goal):",
+      "    x1, y1 = pos",
+      "    x2, y2 = goal",
+      "    return -(abs(x1 - x2) + abs(y1 - y2))",
+      "",
+      "# Example",
+      "# utility((1, 2), (4, 5))  =>  -6  (closer = less negative = higher utility)"
+    ],
+    "description": "Utility Function — negative Manhattan distance, higher = closer to goal"
+  },
+
+  "Genetic Algorithm": {
+    "prefix": "genetic",
+    "body": [
+      "import random",
+      "",
+      "def fitness(x): return x          # minimize x",
+      "",
+      "def genetic(pop_size=6, generations=5):",
+      "    pop = [random.randint(0, 100) for _ in range(pop_size)]",
+      "    for gen in range(generations):",
+      "        pop = sorted(pop, key=fitness)",
+      "        parents = pop[:2]              # selection",
+      "        child = (parents[0] + parents[1]) // 2  # crossover",
+      "        child += random.randint(-2, 2)           # mutation",
+      "        pop = parents + pop[2:4] + [child]",
+      "    print(f'Best: {min(pop, key=fitness)}')"
+    ],
+    "description": "Genetic Algorithm — selection, crossover, mutation loop"
+  },
+
+  "Simple Reflex Agent": {
+    "prefix": "agent-reflex",
+    "body": [
+      "import random",
+      "",
+      "def reflex_agent(pos, goal, maze):",
+      "    if pos == goal:",
+      "        print('Goal Reached')",
+      "        return None",
+      "    x, y = pos",
+      "    moves = [(x+1,y),(x-1,y),(x,y+1),(x,y-1)]",
+      "    valid = [",
+      "        (nx, ny) for nx, ny in moves",
+      "        if 0 <= nx < len(maze) and 0 <= ny < len(maze[0])",
+      "        and maze[nx][ny] == 0",
+      "    ]",
+      "    return random.choice(valid) if valid else None"
+    ],
+    "description": "Simple Reflex Agent — no memory, reacts to percept only, random valid move"
+  },
+
+  "Model Based Agent": {
+    "prefix": "agent-model",
+    "body": [
+      "visited = set()",
+      "",
+      "def model_agent(pos, goal, maze):",
+      "    if pos == goal:",
+      "        print('Goal Reached')",
+      "        return None",
+      "    visited.add(pos)",
+      "    x, y = pos",
+      "    moves = [(x+1,y),(x-1,y),(x,y+1),(x,y-1)]",
+      "    for nx, ny in moves:",
+      "        if (0 <= nx < len(maze) and 0 <= ny < len(maze[0])",
+      "                and maze[nx][ny] == 0",
+      "                and (nx, ny) not in visited):",
+      "            return (nx, ny)",
+      "    return None  # all neighbors visited"
+    ],
+    "description": "Model Based Agent — has internal state (visited), avoids revisiting"
+  },
+
+  "Goal Based Agent": {
+    "prefix": "agent-goal",
+    "body": [
+      "from collections import deque",
+      "",
+      "def goal_agent(start, goal, maze):",
+      "    q = deque([(start, [start])])  # (pos, path)",
+      "    vis = set([start])",
+      "    while q:",
+      "        pos, path = q.popleft()",
+      "        if pos == goal:",
+      "            print(f'Path: {path}')",
+      "            return path",
+      "        x, y = pos",
+      "        for nx, ny in [(x+1,y),(x-1,y),(x,y+1),(x,y-1)]:",
+      "            if (0 <= nx < len(maze) and 0 <= ny < len(maze[0])",
+      "                    and maze[nx][ny] == 0 and (nx, ny) not in vis):",
+      "                vis.add((nx, ny))",
+      "                q.append(((nx, ny), path + [(nx, ny)]))"
+    ],
+    "description": "Goal Based Agent — BFS to plan full path to goal, returns path list"
+  },
+
+  "Utility Based Agent": {
+    "prefix": "agent-utility",
+    "body": [
+      "def utility(pos, goal):",
+      "    x1, y1 = pos; x2, y2 = goal",
+      "    return -(abs(x1 - x2) + abs(y1 - y2))",
+      "",
+      "def utility_agent(pos, goal, maze):",
+      "    if pos == goal:",
+      "        print('Goal Reached')",
+      "        return None",
+      "    x, y = pos",
+      "    valid = [",
+      "        (nx, ny) for nx, ny in [(x+1,y),(x-1,y),(x,y+1),(x,y-1)]",
+      "        if 0 <= nx < len(maze) and 0 <= ny < len(maze[0])",
+      "        and maze[nx][ny] == 0",
+      "    ]",
+      "    return max(valid, key=lambda p: utility(p, goal)) if valid else None"
+    ],
+    "description": "Utility Based Agent — picks neighbor with highest utility (min Manhattan distance)"
+  },
+
+  "Learning Based Agent": {
+    "prefix": "agent-learning",
+    "body": [
+      "q_table = {}",
+      "ALPHA = 0.1    # learning rate",
+      "GAMMA = 0.9    # discount factor",
+      "",
+      "def learn(state, reward, next_state):",
+      "    q_table.setdefault(state, 0)",
+      "    q_table.setdefault(next_state, 0)",
+      "    q_table[state] += ALPHA * (",
+      "        reward + GAMMA * q_table[next_state] - q_table[state]",
+      "    )",
+      "",
+      "def choose_action(state, actions):",
+      "    # greedy: pick action with highest Q-value",
+      "    return max(actions, key=lambda a: q_table.get(a, 0))"
+    ],
+    "description": "Learning Based Agent — Q-update: Q(s) += α(r + γ·maxQ − Q(s))"
+  }
+}
