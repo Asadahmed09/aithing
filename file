@@ -1,0 +1,200 @@
+{
+  "BFS":
+  {
+    "prefix": "bfs",
+    "body": [
+      "from collections import deque",
+      "def bfs(graph, start, goal):",
+      "    q = deque([start])",
+      "    vis = set()",
+      "    while q:",
+      "        n = q.popleft()",
+      "        if n == goal:",
+      "            print('Found')",
+      "            return",
+      "        if n not in vis:",
+      "            vis.add(n)",
+      "            for nei in graph[n]:",
+      "                q.append(nei)"
+    ],
+    "description": "Breadth First Search"
+  },
+
+  "DFS":
+  {
+    "prefix": "dfs",
+    "body": [
+      "def dfs(graph, node, goal, vis):",
+      "    if node == goal:",
+      "        print('Found')",
+      "        return",
+      "    vis.add(node)",
+      "    for nei in graph[node]:",
+      "        if nei not in vis:",
+      "            dfs(graph, nei, goal, vis)"
+    ],
+    "description": "Depth First Search"
+  },
+
+  "DLS":
+  {
+    "prefix": "dls",
+    "body": [
+      "def dls(node, goal, depth, limit, graph):",
+      "    if node == goal:",
+      "        print('Found')",
+      "        return True",
+      "    if depth == limit:",
+      "        return False",
+      "    for nei in graph[node]:",
+      "        if dls(nei, goal, depth+1, limit, graph):",
+      "            return True",
+      "    return False"
+    ],
+    "description": "Depth Limited Search"
+  },
+
+  "IDDFS":
+  {
+    "prefix": "iddfs",
+    "body": [
+      "def iddfs(start, goal, graph, max_d):",
+      "    for d in range(max_d):",
+      "        if dls(start, goal, 0, d, graph):",
+      "            print('Found at depth', d)",
+      "            return"
+    ],
+    "description": "Iterative Deepening DFS"
+  },
+
+  "UCS":
+  {
+    "prefix": "ucs",
+    "body": [
+      "import heapq",
+      "def ucs(graph, start, goal):",
+      "    pq = [(0, start)]",
+      "    vis = set()",
+      "    while pq:",
+      "        cost, node = heapq.heappop(pq)",
+      "        if node == goal:",
+      "            print('Cost:', cost)",
+      "            return",
+      "        if node not in vis:",
+      "            vis.add(node)",
+      "            for nei, w in graph[node]:",
+      "                heapq.heappush(pq, (cost+w, nei))"
+    ],
+    "description": "Uniform Cost Search"
+  },
+
+  "Greedy Best First":
+  {
+    "prefix": "greedy",
+    "body": [
+      "import heapq",
+      "def greedy(graph, start, goal, h):",
+      "    pq = [(h[start], start)]",
+      "    vis = set()",
+      "    while pq:",
+      "        _, node = heapq.heappop(pq)",
+      "        if node == goal:",
+      "            print('Found')",
+      "            return",
+      "        if node not in vis:",
+      "            vis.add(node)",
+      "            for nei in graph[node]:",
+      "                heapq.heappush(pq, (h[nei], nei))"
+    ],
+    "description": "Greedy Best First Search"
+  },
+
+  "A Star":
+  {
+    "prefix": "astar",
+    "body": [
+      "import heapq",
+      "def astar(graph, start, goal, h):",
+      "    pq = [(h[start], 0, start)]",
+      "    vis = set()",
+      "    while pq:",
+      "        f, g, node = heapq.heappop(pq)",
+      "        if node == goal:",
+      "            print('Cost:', g)",
+      "            return",
+      "        if node not in vis:",
+      "            vis.add(node)",
+      "            for nei, w in graph[node]:",
+      "                heapq.heappush(pq, (g+w+h[nei], g+w, nei))"
+    ],
+    "description": "A Star Search"
+  },
+
+  "Hill Climbing":
+  {
+    "prefix": "hill",
+    "body": [
+      "def hill(start, goal, graph, h):",
+      "    cur = start",
+      "    while True:",
+      "        if cur == goal:",
+      "            print('Found')",
+      "            return",
+      "        nei = graph[cur]",
+      "        best = min(nei, key=lambda x: h[x])",
+      "        if h[best] >= h[cur]:",
+      "            print('Stuck')",
+      "            return",
+      "        cur = best"
+    ],
+    "description": "Hill Climbing"
+  },
+
+  "Beam Search":
+  {
+    "prefix": "beam",
+    "body": [
+      "def beam(start, goal, graph, h, k):",
+      "    level = [start]",
+      "    while level:",
+      "        next_l = []",
+      "        for node in level:",
+      "            if node == goal:",
+      "                print('Found')",
+      "                return",
+      "            next_l += graph[node]",
+      "        next_l = sorted(next_l, key=lambda x: h[x])[:k]",
+      "        level = next_l"
+    ],
+    "description": "Beam Search"
+  },
+
+  "Utility Function":
+  {
+    "prefix": "utility",
+    "body": [
+      "def utility(pos, goal):",
+      "    x1, y1 = pos",
+      "    x2, y2 = goal",
+      "    return -(abs(x1-x2) + abs(y1-y2))"
+    ],
+    "description": "Utility Function (Manhattan)"
+  },
+
+  "Genetic Algorithm":
+  {
+    "prefix": "genetic",
+    "body": [
+      "import random",
+      "def genetic():",
+      "    pop = [random.randint(0,10) for _ in range(5)]",
+      "    for _ in range(5):",
+      "        pop = sorted(pop)",
+      "        pop = pop[:2]",
+      "        child = sum(pop)//2",
+      "        pop.append(child)",
+      "    print('Best:', min(pop))"
+    ],
+    "description": "Basic Genetic Algorithm"
+  }
+}
