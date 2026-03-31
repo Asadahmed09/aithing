@@ -197,4 +197,111 @@
     ],
     "description": "Basic Genetic Algorithm"
   }
+  "Simple Reflex Agent":
+  {
+    "prefix": "agent-reflex",
+    "body": [
+      "import random",
+      "",
+      "def reflex(pos, goal, maze):",
+      "    if pos == goal:",
+      "        print('Goal Reached')",
+      "        return",
+      "    x, y = pos",
+      "    moves = [(x+1,y),(x-1,y),(x,y+1),(x,y-1)]",
+      "    valid = []",
+      "    for nx, ny in moves:",
+      "        if 0 <= nx < len(maze) and 0 <= ny < len(maze[0]) and maze[nx][ny] == 0:",
+      "            valid.append((nx, ny))",
+      "    if valid:",
+      "        return random.choice(valid)"
+    ],
+    "description": "Simple Reflex Agent"
+  },
+
+  "Model Based Agent":
+  {
+    "prefix": "agent-model",
+    "body": [
+      "visited = set()",
+      "",
+      "def model_agent(pos, goal, maze):",
+      "    if pos == goal:",
+      "        print('Goal Reached')",
+      "        return",
+      "    visited.add(pos)",
+      "    x, y = pos",
+      "    moves = [(x+1,y),(x-1,y),(x,y+1),(x,y-1)]",
+      "    for nx, ny in moves:",
+      "        if (0 <= nx < len(maze) and 0 <= ny < len(maze[0]) and",
+      "            maze[nx][ny] == 0 and (nx, ny) not in visited):",
+      "            return (nx, ny)"
+    ],
+    "description": "Model Based Agent"
+  },
+
+  "Goal Based Agent (BFS Style)":
+  {
+    "prefix": "agent-goal",
+    "body": [
+      "from collections import deque",
+      "",
+      "def goal_agent(start, goal, maze):",
+      "    q = deque([start])",
+      "    visited = set()",
+      "    while q:",
+      "        node = q.popleft()",
+      "        if node == goal:",
+      "            print('Goal Found')",
+      "            return",
+      "        if node not in visited:",
+      "            visited.add(node)",
+      "            x, y = node",
+      "            moves = [(x+1,y),(x-1,y),(x,y+1),(x,y-1)]",
+      "            for nx, ny in moves:",
+      "                if 0 <= nx < len(maze) and 0 <= ny < len(maze[0]) and maze[nx][ny] == 0:",
+      "                    q.append((nx, ny))"
+    ],
+    "description": "Goal Based Agent using BFS"
+  },
+
+  "Utility Based Agent (Manhattan Heuristic)":
+  {
+    "prefix": "agent-utility",
+    "body": [
+      "def utility(pos, goal):",
+      "    x1, y1 = pos",
+      "    x2, y2 = goal",
+      "    return -(abs(x1-x2) + abs(y1-y2))",
+      "",
+      "def utility_agent(pos, goal, maze):",
+      "    x, y = pos",
+      "    moves = [(x+1,y),(x-1,y),(x,y+1),(x,y-1)]",
+      "    valid = []",
+      "    for nx, ny in moves:",
+      "        if 0 <= nx < len(maze) and 0 <= ny < len(maze[0]) and maze[nx][ny] == 0:",
+      "            valid.append((nx, ny))",
+      "    if not valid:",
+      "        return None",
+      "    return max(valid, key=lambda p: utility(p, goal))"
+    ],
+    "description": "Utility Based Agent"
+  },
+
+  "Learning Based Agent":
+  {
+    "prefix": "agent-learning",
+    "body": [
+      "q_table = {}",
+      "",
+      "def learn_agent(state, action, reward, next_state):",
+      "    if state not in q_table:",
+      "        q_table[state] = 0",
+      "    q_table[state] = q_table[state] + 0.1 * (reward + 0 - q_table[state])",
+      "",
+      "def choose_action(state):",
+      "    return max(q_table, key=q_table.get, default=state)"
+    ],
+    "description": "Learning Based Agent (Basic Q-style)"
+  }
 }
