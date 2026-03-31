@@ -1,0 +1,608 @@
+{
+  "2.1 Create a Basic Class": {
+    "prefix": "oop-class-basic",
+    "body": [
+      "class Student:",
+      "    pass"
+    ],
+    "description": "2.1 — Create a basic empty class"
+  },
+
+  "2.2 Create Objects": {
+    "prefix": "oop-objects",
+    "body": [
+      "s1 = Student()  # s1 is an object of class Student",
+      "s2 = Student()  # s2 is another object"
+    ],
+    "description": "2.2 — Create objects from a class"
+  },
+
+  "2.3 Attributes and Methods": {
+    "prefix": "oop-attributes-methods",
+    "body": [
+      "class MyClass:",
+      "    x = 5  # attribute",
+      "",
+      "    # Method",
+      "    def method_one(self):",
+      "        print('This is method one')",
+      "",
+      "m1 = MyClass()",
+      "print(m1.x)       # access attribute",
+      "m1.method_one()   # call method"
+    ],
+    "description": "2.3 — Attributes and methods full example"
+  },
+
+  "2.4 Constructor __init__": {
+    "prefix": "oop-constructor",
+    "body": [
+      "class Student:",
+      "    def __init__(self, name, age):",
+      "        self.name = name  # instance attribute",
+      "        self.age  = age   # instance attribute",
+      "",
+      "# Creating objects",
+      "s1 = Student('Ali',  20)",
+      "s2 = Student('Sara', 22)",
+      "",
+      "print(s1.name, s1.age)  # Ali 20",
+      "print(s2.name, s2.age)  # Sara 22"
+    ],
+    "description": "2.4 — Constructor (__init__) example"
+  },
+
+  "2.5.1 Class Attribute": {
+    "prefix": "oop-class-attribute",
+    "body": [
+      "class Student:",
+      "    school = 'ABC High School'  # class attribute — shared by all",
+      "",
+      "s1 = Student()",
+      "s2 = Student()",
+      "print(s1.school)  # ABC High School",
+      "print(s2.school)  # ABC High School"
+    ],
+    "description": "2.5.1 — Class attribute shared by all instances"
+  },
+
+  "2.5.2 Instance Attribute": {
+    "prefix": "oop-instance-attribute",
+    "body": [
+      "class Student:",
+      "    def __init__(self, name, age):",
+      "        self.name = name  # instance attribute",
+      "        self.age  = age   # instance attribute",
+      "",
+      "s1 = Student('Ali',  20)",
+      "s2 = Student('Sara', 22)",
+      "print(s1.name, s1.age)  # Ali 20",
+      "print(s2.name, s2.age)  # Sara 22"
+    ],
+    "description": "2.5.2 — Instance attributes unique per object"
+  },
+
+  "2.5 Modifying Class and Instance Attributes": {
+    "prefix": "oop-modify-attributes",
+    "body": [
+      "class Student:",
+      "    school_name = 'ABC School'  # class attribute",
+      "",
+      "    def __init__(self, name, age):",
+      "        self.name = name  # instance attribute",
+      "        self.age  = age   # instance attribute",
+      "",
+      "    def display_info(self):",
+      "        print(f'Name:   {self.name}')",
+      "        print(f'Age:    {self.age}')",
+      "        print(f'School: {Student.school_name}')",
+      "",
+      "student1 = Student('Ali',  15)",
+      "student2 = Student('Sara', 16)",
+      "",
+      "student1.display_info()",
+      "print('----------------')",
+      "student2.display_info()",
+      "",
+      "# Modify an instance attribute (only affects student1)",
+      "student1.age = 16",
+      "print('\\nAfter updating age of student1:')",
+      "student1.display_info()",
+      "",
+      "# Modify class attribute (affects ALL objects)",
+      "Student.school_name = 'XYZ School'",
+      "print('\\nAfter updating school name:')",
+      "student1.display_info()",
+      "student2.display_info()"
+    ],
+    "description": "2.5 — Modifying class and instance attributes"
+  },
+
+  "2.5 BankAccount Example": {
+    "prefix": "oop-bankaccount-example",
+    "body": [
+      "class BankAccount:",
+      "    bank_name = 'ABC Bank'  # class attribute",
+      "",
+      "    def __init__(self, holder_name, account_no, balance):",
+      "        self.holder_name = holder_name  # instance attribute",
+      "        self.account_no  = account_no   # instance attribute",
+      "        self.balance     = balance       # instance attribute",
+      "",
+      "    def display_account(self):",
+      "        print('Bank:',           BankAccount.bank_name)",
+      "        print('Account Holder:', self.holder_name)",
+      "        print('Account Number:', self.account_no)",
+      "        print('Balance:',        self.balance)",
+      "",
+      "    def deposit(self, amount):",
+      "        self.balance += amount",
+      "        print(f'Deposited {amount}. New Balance: {self.balance}')",
+      "",
+      "# Create objects",
+      "account1 = BankAccount('Ali',  1001, 5000)",
+      "account2 = BankAccount('Sara', 1002, 7000)",
+      "",
+      "account1.display_account()",
+      "print('----------------')",
+      "account2.display_account()",
+      "print('----------------')",
+      "account1.deposit(2000)"
+    ],
+    "description": "2.5 — BankAccount class example"
+  },
+
+  // ══════════════════════════════════════════════
+  //  PRACTICE TASK 1 — Smart Light System
+  // ══════════════════════════════════════════════
+
+  "Practice Task 1 — Smart Light System": {
+    "prefix": "oop-task1-smartlight",
+    "body": [
+      "class SmartLight:",
+      "    def __init__(self, room_name):",
+      "        self.room_name = room_name",
+      "        self.status    = 'OFF'  # default status",
+      "",
+      "    def turn_on(self):",
+      "        self.status = 'ON'",
+      "        print(f'{self.room_name} light turned ON.')",
+      "",
+      "    def turn_off(self):",
+      "        self.status = 'OFF'",
+      "        print(f'{self.room_name} light turned OFF.')",
+      "",
+      "    def display_status(self):",
+      "        print(f'{self.room_name} light is {self.status}.')",
+      "",
+      "# Create light objects for different rooms",
+      "living_room = SmartLight('Living Room')",
+      "bedroom     = SmartLight('Bedroom')",
+      "",
+      "# Turn lights on/off",
+      "living_room.turn_on()",
+      "bedroom.turn_off()",
+      "",
+      "# Display status",
+      "living_room.display_status()",
+      "bedroom.display_status()"
+    ],
+    "description": "Practice Task 1 — Smart Light System using OOP"
+  },
+
+  // ══════════════════════════════════════════════
+  //  SECTION 3 — Inheritance
+  // ══════════════════════════════════════════════
+
+  "3.1 Inheritance without super()": {
+    "prefix": "oop-inherit-no-super",
+    "body": [
+      "# Parent class",
+      "class Person:",
+      "    def __init__(self, name, age):",
+      "        self.name = name",
+      "        self.age  = age",
+      "",
+      "    def display_person(self):",
+      "        print(f'Name: {self.name}, Age: {self.age}')",
+      "",
+      "# Child class — no __init__, inherits parent's automatically",
+      "class Student(Person):",
+      "    def display_student(self):",
+      "        print('This is a student')",
+      "",
+      "s1 = Student('Ali', 16)",
+      "s1.display_person()   # inherited from parent",
+      "s1.display_student()  # child's own method"
+    ],
+    "description": "3.1 — Inheritance without super()"
+  },
+
+  "3.2 Inheritance with super()": {
+    "prefix": "oop-inherit-super",
+    "body": [
+      "# Parent class",
+      "class Person:",
+      "    def __init__(self, name, age):",
+      "        self.name = name",
+      "        self.age  = age",
+      "",
+      "    def display_person(self):",
+      "        print(f'Name: {self.name}, Age: {self.age}')",
+      "",
+      "# Child class — has its own __init__, uses super() to init parent",
+      "class Student(Person):",
+      "    def __init__(self, name, age, roll_no):",
+      "        super().__init__(name, age)  # initialize parent attributes",
+      "        self.roll_no = roll_no       # child-specific attribute",
+      "",
+      "    def display_student(self):",
+      "        print(f'Roll Number: {self.roll_no}')",
+      "",
+      "s1 = Student('Ali', 16, 101)",
+      "s1.display_person()   # works — parent attrs initialized",
+      "s1.display_student()  # works — child attr"
+    ],
+    "description": "3.2 — Inheritance with super()"
+  },
+
+  "3.3 Single Inheritance": {
+    "prefix": "oop-inherit-single",
+    "body": [
+      "# Parent class",
+      "class Parent:",
+      "    def greet(self):",
+      "        print('Hello from Parent')",
+      "",
+      "# Child class",
+      "class Child(Parent):",
+      "    def greet_child(self):",
+      "        print('Hello from Child')",
+      "",
+      "c = Child()",
+      "c.greet()        # inherited from Parent",
+      "c.greet_child()  # child's own method"
+    ],
+    "description": "3.3 — Single Inheritance"
+  },
+
+  "3.4 Multiple Inheritance": {
+    "prefix": "oop-inherit-multiple",
+    "body": [
+      "class Parent1:",
+      "    def greet_parent1(self):",
+      "        print('Hello from Parent1')",
+      "",
+      "class Parent2:",
+      "    def greet_parent2(self):",
+      "        print('Hello from Parent2')",
+      "",
+      "class Child(Parent1, Parent2):",
+      "    def greet_child(self):",
+      "        print('Hello from Child')",
+      "",
+      "c = Child()",
+      "c.greet_parent1()",
+      "c.greet_parent2()",
+      "c.greet_child()"
+    ],
+    "description": "3.4 — Multiple Inheritance"
+  },
+
+  "3.5 Multilevel Inheritance": {
+    "prefix": "oop-inherit-multilevel",
+    "body": [
+      "# Grandparent class",
+      "class Grandparent:",
+      "    def greet_grandparent(self):",
+      "        print('Hello from Grandparent')",
+      "",
+      "# Parent class",
+      "class Parent(Grandparent):",
+      "    def greet_parent(self):",
+      "        print('Hello from Parent')",
+      "",
+      "# Child class",
+      "class Child(Parent):",
+      "    def greet_child(self):",
+      "        print('Hello from Child')",
+      "",
+      "c = Child()",
+      "c.greet_grandparent()  # inherited from Grandparent",
+      "c.greet_parent()       # inherited from Parent",
+      "c.greet_child()        # own method"
+    ],
+    "description": "3.5 — Multilevel Inheritance"
+  },
+
+  "3.6 Hierarchical Inheritance": {
+    "prefix": "oop-inherit-hierarchical",
+    "body": [
+      "class Parent:",
+      "    def greet_parent(self):",
+      "        print('Hello from Parent')",
+      "",
+      "class Child1(Parent):",
+      "    def greet_child1(self):",
+      "        print('Hello from Child1')",
+      "",
+      "class Child2(Parent):",
+      "    def greet_child2(self):",
+      "        print('Hello from Child2')",
+      "",
+      "c1 = Child1()",
+      "c2 = Child2()",
+      "c1.greet_parent()   # inherited",
+      "c1.greet_child1()   # own",
+      "c2.greet_parent()   # inherited",
+      "c2.greet_child2()   # own"
+    ],
+    "description": "3.6 — Hierarchical Inheritance"
+  },
+
+  "3.7 Hybrid Inheritance": {
+    "prefix": "oop-inherit-hybrid",
+    "body": [
+      "class Grandparent:",
+      "    def greet_grandparent(self):",
+      "        print('Hello from Grandparent')",
+      "",
+      "class Parent1(Grandparent):",
+      "    def greet_parent1(self):",
+      "        print('Hello from Parent1')",
+      "",
+      "class Parent2:",
+      "    def greet_parent2(self):",
+      "        print('Hello from Parent2')",
+      "",
+      "class Child(Parent1, Parent2):",
+      "    def greet_child(self):",
+      "        print('Hello from Child')",
+      "",
+      "c = Child()",
+      "c.greet_grandparent()",
+      "c.greet_parent1()",
+      "c.greet_parent2()",
+      "c.greet_child()"
+    ],
+    "description": "3.7 — Hybrid Inheritance"
+  },
+
+  // ══════════════════════════════════════════════
+  //  PRACTICE TASK 2 — University Staff System
+  // ══════════════════════════════════════════════
+
+  "Practice Task 2 — University Staff System": {
+    "prefix": "oop-task2-staff",
+    "body": [
+      "# Base class",
+      "class Staff:",
+      "    def __init__(self, name, staff_id, department):",
+      "        self.name       = name",
+      "        self.staff_id   = staff_id",
+      "        self.department = department",
+      "",
+      "    def display_info(self):",
+      "        print(f'Name:       {self.name}')",
+      "        print(f'Staff ID:   {self.staff_id}')",
+      "        print(f'Department: {self.department}')",
+      "",
+      "# Teacher subclass",
+      "class Teacher(Staff):",
+      "    def __init__(self, name, staff_id, department, courses, salary):",
+      "        super().__init__(name, staff_id, department)",
+      "        self.courses = courses",
+      "        self.salary  = salary",
+      "",
+      "    def teach(self):",
+      "        print(f'{self.name} is teaching: {self.courses}')",
+      "",
+      "    def display_info(self):",
+      "        super().display_info()",
+      "        print(f'Courses: {self.courses}')",
+      "        print(f'Salary:  {self.salary}')",
+      "",
+      "# AdminStaff subclass",
+      "class AdminStaff(Staff):",
+      "    def __init__(self, name, staff_id, department, role, working_hours):",
+      "        super().__init__(name, staff_id, department)",
+      "        self.role          = role",
+      "        self.working_hours = working_hours",
+      "",
+      "    def perform_task(self):",
+      "        print(f'{self.name} ({self.role}) is performing administrative tasks.')",
+      "",
+      "    def display_info(self):",
+      "        super().display_info()",
+      "        print(f'Role:          {self.role}')",
+      "        print(f'Working Hours: {self.working_hours}')",
+      "",
+      "# ResearchAssistant subclass",
+      "class ResearchAssistant(Staff):",
+      "    def __init__(self, name, staff_id, department, research_topic, stipend):",
+      "        super().__init__(name, staff_id, department)",
+      "        self.research_topic = research_topic",
+      "        self.stipend        = stipend",
+      "",
+      "    def work_on_research(self):",
+      "        print(f'{self.name} is working on: {self.research_topic}')",
+      "",
+      "    def display_info(self):",
+      "        super().display_info()",
+      "        print(f'Research Topic: {self.research_topic}')",
+      "        print(f'Stipend:        {self.stipend}')",
+      "",
+      "# ── Create objects ──",
+      "t  = Teacher('Dr. Ali',   'T01', 'CS', 'AI, ML', 150000)",
+      "a  = AdminStaff('Sara',   'A01', 'Admin', 'Manager', 8)",
+      "ra = ResearchAssistant('Ahmed', 'R01', 'CS', 'Deep Learning', 30000)",
+      "",
+      "print('═══ Teacher ═══')",
+      "t.display_info()",
+      "t.teach()",
+      "",
+      "print('\\n═══ Admin Staff ═══')",
+      "a.display_info()",
+      "a.perform_task()",
+      "",
+      "print('\\n═══ Research Assistant ═══')",
+      "ra.display_info()",
+      "ra.work_on_research()"
+    ],
+    "description": "Practice Task 2 — University Staff Management System"
+  },
+
+  // ══════════════════════════════════════════════
+  //  SECTION 4 — Polymorphism
+  // ══════════════════════════════════════════════
+
+  "4.1.1 Method Overloading — Default Arguments": {
+    "prefix": "oop-poly-overload-default",
+    "body": [
+      "class Calculator:",
+      "    def add(self, a, b=0):",
+      "        \"\"\"Add two numbers, or one number if only one is given\"\"\"",
+      "        print('Sum:', a + b)",
+      "",
+      "calc = Calculator()",
+      "print('Method Overloading — Default Argument:')",
+      "calc.add(5, 10)  # Sum: 15",
+      "calc.add(7)      # Sum: 7  (b defaults to 0)"
+    ],
+    "description": "4.1.1 — Method Overloading simulated with default arguments"
+  },
+
+  "4.1.2 Method Overloading — *args": {
+    "prefix": "oop-poly-overload-args",
+    "body": [
+      "class Calculator:",
+      "    def add(self, *args):",
+      "        return sum(args)",
+      "",
+      "calc = Calculator()",
+      "print(calc.add(5, 10))       # 15  — two arguments",
+      "print(calc.add(5, 10, 15))   # 30  — three arguments",
+      "print(calc.add(1, 2, 3, 4))  # 10  — four arguments"
+    ],
+    "description": "4.1.2 — Method Overloading simulated with *args"
+  },
+
+  "4.2 Method Overriding (Runtime Polymorphism)": {
+    "prefix": "oop-poly-override",
+    "body": [
+      "# Parent class",
+      "class Animal:",
+      "    def sound(self):",
+      "        print('Some generic sound')",
+      "",
+      "# Child classes override sound()",
+      "class Dog(Animal):",
+      "    def sound(self):",
+      "        print('Bark')  # overrides parent",
+      "",
+      "class Cat(Animal):",
+      "    def sound(self):",
+      "        print('Meow')  # overrides parent",
+      "",
+      "# Runtime polymorphism — same method name, different behavior",
+      "a = Dog()",
+      "b = Cat()",
+      "a.sound()  # Bark",
+      "b.sound()  # Meow"
+    ],
+    "description": "4.2 — Method Overriding / Runtime Polymorphism"
+  },
+
+  // ══════════════════════════════════════════════
+  //  SECTION 5 — Encapsulation
+  // ══════════════════════════════════════════════
+
+  "5.1 Public Members": {
+    "prefix": "oop-encap-public",
+    "body": [
+      "class Student:",
+      "    def __init__(self, name, roll_no):",
+      "        self.name    = name     # public attribute",
+      "        self.roll_no = roll_no  # public attribute",
+      "",
+      "    def display_info(self):     # public method",
+      "        print(f'Name: {self.name}, Roll No: {self.roll_no}')",
+      "",
+      "# Access from outside — works fine",
+      "s = Student('Ali', 101)",
+      "print(s.name)      # public attribute",
+      "print(s.roll_no)",
+      "s.display_info()   # public method",
+      "",
+      "# Access from subclass — also works",
+      "class CollegeStudent(Student):",
+      "    def show(self):",
+      "        print(self.name)",
+      "        print(self.roll_no)",
+      "        self.display_info()",
+      "",
+      "cs = CollegeStudent('Sara', 102)",
+      "cs.show()"
+    ],
+    "description": "5.1 — Public members accessible from anywhere"
+  },
+
+  "5.2 Protected Members": {
+    "prefix": "oop-encap-protected",
+    "body": [
+      "class Student:",
+      "    def __init__(self, name, roll_no):",
+      "        self._name    = name     # protected attribute",
+      "        self._roll_no = roll_no  # protected attribute",
+      "",
+      "    def _display_info(self):     # protected method",
+      "        print(f'Name: {self._name}, Roll No: {self._roll_no}')",
+      "",
+      "s = Student('Ali', 101)",
+      "print('\\nAccessing Protected in same class:')",
+      "print(s._name)",
+      "print(s._roll_no)",
+      "s._display_info()",
+      "",
+      "# Accessible in subclass",
+      "class CollegeStudent(Student):",
+      "    def show(self):",
+      "        print('\\nAccessing Protected from subclass:')",
+      "        print(self._name)",
+      "        print(self._roll_no)",
+      "        self._display_info()",
+      "",
+      "cs = CollegeStudent('Sara', 102)",
+      "cs.show()"
+    ],
+    "description": "5.2 — Protected members (single underscore)"
+  },
+
+  "5.3 Private Members": {
+    "prefix": "oop-encap-private",
+    "body": [
+      "class Student:",
+      "    def __init__(self, name, roll_no):",
+      "        self.__name    = name     # private attribute",
+      "        self.__roll_no = roll_no  # private attribute",
+      "",
+      "    def __display_info(self):    # private method",
+      "        print(f'Name: {self.__name}, Roll No: {self.__roll_no}')",
+      "",
+      "    # Public method to expose private data in a controlled way",
+      "    def access_private(self):",
+      "        print('Accessing private members inside the class:')",
+      "        print(self.__name)",
+      "        print(self.__roll_no)",
+      "        self.__display_info()",
+      "",
+      "s = Student('Ali', 101)",
+      "s.access_private()    # works via public method",
+      "# s.__name           # ERROR — cannot access from outside",
+      "",
+      "# Subclass — must also use public method",
+      "class CollegeStudent(Student):",
+      "    def show(self):",
+      "        print('\\nAccessing private from subclass via public method:')",
+      "        # self.__name         # ERROR",
+      "        self.access_priva
